@@ -1,0 +1,13 @@
+data/
+exp/
+vad_segments/
+tmp/
+segmentation/
+pretrained-model/lre17_eval_3s
+pretrained-model/lre17_eval_10s
+pretrained-model/lre17_eval_30s
+pretrained-model/lre17_train_30s
+*.pyc
+steps
+utils
+.vscode/
