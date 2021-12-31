@@ -49,6 +49,7 @@ echo
 echo "$0 $@"
 echo
 
+. parse_options.sh || exit 1
 steps=$(echo $steps | perl -e '$steps=<STDIN>;  $has_format = 0;
   if($steps =~ m:(\d+)\-$:g){$start = $1; $end = $start + 10; $has_format ++;}
         elsif($steps =~ m:(\d+)\-(\d+):g) { $start = $1; $end = $2; if($start == $end){}
@@ -208,7 +209,7 @@ enroll=$train_set
 clad=100
 
 # Get score
-if [ ! -z $step09 ]; then
+if [ ! -z $step07 ]; then
     echo -e "____________Step 7: Get score on recog sets start @ $(date)____________"
     echo $num
     for test in $recog_sets; do

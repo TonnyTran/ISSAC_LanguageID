@@ -1,6 +1,11 @@
 #!/bin/bash
-
-# By Jicheng Zhang
+#####
+# Author:   Tran The Anh + Jang Jicheng
+# Date:     Dec 2021
+# Project:  ISSAC
+# Topic:    Language ID
+# Licensed: Nanyang Technological University
+#####
 
 echo
 echo "$0 $@"
@@ -27,6 +32,8 @@ function UsageExample {
  /mipirepo/data/seame/formatted  projects/seame  
 EOF
 }
+
+. parse_options.sh || exit 1
 
 steps=$(echo $steps | perl -e '$steps=<STDIN>;  $has_format = 0;
   if($steps =~ m:(\d+)\-$:g){$start = $1; $end = $start + 10; $has_format ++;}

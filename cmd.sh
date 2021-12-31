@@ -13,9 +13,7 @@
 export cmd="/home3/theanhtran/slurm.pl"
 export train_cmd="/home3/theanhtran/slurm.pl --gpu 1 --exclude=node0[3-7]"
 export cuda_cmd="/home3/theanhtran/slurm.pl --gpu 1 --exclude=node03"
-export cuda_cmd_alt="/home3/theanhtran/slurm.pl --gpu 1 --nodelist=node06"
 
-export cmd="run.pl"
-# export train_cmd="run.pl"
-# export decode_cmd="run.pl"
-# export mkgraph_cmd="run.pl"
+# export cmd="run.pl"
+# export train_cmd="run.pl --mem 4G --gpu 1"
+# export cuda_cmd="run.pl --mem 4G --gpu 1"
