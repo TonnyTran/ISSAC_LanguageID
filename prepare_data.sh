@@ -114,7 +114,7 @@ if [ ! -z $step03 ]; then
   [ -f $segment_set/segments ] && cp -r $segment_set/{wav.scp,utt2spk,spk2utt,utt2dur,feats.scp,cmvn.scp,segments,vad.scp} $segment_set/bn
   [ ! -f $segment_set/segments ] && cp -r $segment_set/{wav.scp,utt2spk,spk2utt,utt2dur,feats.scp,cmvn.scp,vad.scp} $segment_set/bn
   cp -r $segment_set/{wav.scp,utt2spk,spk2utt,utt2dur,feats.scp,cmvn.scp} $segment_set/bn
-  steps_ivec/make_mfcc_bn.sh --mfcc-config conf/mfcc_hires.conf --nj $nj --cmd "$cuda_cmd" \
+  steps_ivec/make_mfcc_bn.sh --mfcc-config conf/mfcc_hires.conf --nj $nj --cmd "$cmd" \
     $segment_set/bn $dnn_model $tgbnf/log $tgbnf || exit 1
   utils/fix_data_dir.sh $segment_set/bn
   echo -e "____________Step 3: Extract BNF feature (to do VAD) ended  @ $(date)____________"
@@ -160,7 +160,7 @@ if [ ! -z $step05 ]; then
   utils/fix_data_dir.sh $finalFolder
   utils/validate_data_dir.sh --no-feats $finalFolder
 
-  mkdir data/lre17_train_${fixLength}s
+  mkdir -p data/lre17_train_${fixLength}s
   cp segmentation/$dataset/${finalOutput}_${discardShortSeg}_${mergeTwoSegCloserThan}_${fixLength}_overlap_${hopLength}s/{utt2lang,segments,wav.scp} data/lre17_train_${fixLength}s
   cp data/lre17_train_${fixLength}s/utt2lang data/lre17_train_${fixLength}s/utt2spk
   utils/fix_data_dir.sh data/lre17_train_${fixLength}s

@@ -3,6 +3,9 @@ exp/
 vad_segments/
 tmp/
 segmentation/
+pretrained-model/lre17_dev_3s
+pretrained-model/lre17_dev_10s
+pretrained-model/lre17_dev_30s
 pretrained-model/lre17_eval_3s
 pretrained-model/lre17_eval_10s
 pretrained-model/lre17_eval_30s
@@ -11,3 +14,5 @@ pretrained-model/lre17_train_30s
 steps
 utils
 .vscode/
+tmp_new3.txt
+tmp_new4.txt

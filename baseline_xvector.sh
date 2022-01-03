@@ -168,7 +168,7 @@ if [ ! -z $step05 ]; then
     echo -e "____________Step 5: Train xvectors system start @ $(date)____________"
     subtools/kaldi/steps/nnet3/train_raw_dnn.py \
         --stage=$train_stage \
-        --cmd="$cmd" \
+        --cmd="$train_cmd" \
         --trainer.optimization.proportional-shrink 10 \
         --trainer.optimization.momentum=0.5 \
         --trainer.optimization.num-jobs-initial=2 \

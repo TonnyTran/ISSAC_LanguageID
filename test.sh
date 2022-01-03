@@ -76,6 +76,7 @@ if [ ! -z $step02 ]; then
             echo "#LOG:: getScore use $meth Done!"
         done
     done
+    echo "*****Resuls are stored in $nnet_dir *****"
     echo -e "____________Step 2: getScore use plda and lr ended @ $(date)____________"
 fi
 
