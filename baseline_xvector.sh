@@ -20,7 +20,8 @@ feat_name="bn" # bottleneck feature
 # data location and project location
 source_data=data
 project_dir=exp
-exp_dir=$project_dir/exp-${train_set}-${feat_name}
+version=01
+exp_dir=$project_dir/exp-${train_set}-${feat_name}-${version}
 
 epochs=30
 
@@ -70,7 +71,7 @@ target_data=$exp_dir/data
 
 ## Kaldi x-vector model training
 # Training (preprocess -> get_egs -> training -> extract_xvectors)
-outputname=kaldi_xvector
+outputname=kaldi_xvector2
 nnet_dir=$exp_dir/${outputname}
 [ -d $nnet_dir ] || mkdir -p $nnet_dir
 

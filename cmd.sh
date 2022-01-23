@@ -11,7 +11,7 @@
 # or search for the string 'default_config' in utils/queue.pl or utils/slurm.pl.
 
 # export cmd="/home3/theanhtran/slurm.pl"
-# export train_cmd="/home3/theanhtran/slurm.pl --gpu 2 --exclude=node0[3-7]"
+# export train_cmd="/home3/theanhtran/slurm.pl --gpu 1 --exclude=node0[3-7]"
 # export cuda_cmd="/home3/theanhtran/slurm.pl --gpu 1 --exclude=node03"
 
 export cmd="run.pl"
