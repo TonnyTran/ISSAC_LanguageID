@@ -14,6 +14,7 @@ echo
 . cmd.sh
 . path.sh
 set -e
+cmd="slurm.pl --quiet --exclude=node0[3-4,8]"
 
 ## Raw data location
 lre17_train=/data/users/ellenrao/NIST_LRE_Corpus/NIST_LRE_2017/LDC2017E22_2017_NIST_Language_Recognition_Evaluation_Training_Data
@@ -66,10 +67,10 @@ mkdir -p tmp/$dataset/log
 # prepare data in Kaldi format
 if [ ! -z $step01 ]; then
   echo -e "____________Step 1: Prepare Kaldi format data start @ $(date)____________"
-  bash ./local/make_lre17_train.sh $lre17_train $source_data/$train_set
-  utils/fix_data_dir.sh $source_data/$train_set
-  bash ./local/make_lre17_dev.sh $lre17_dev $source_data/$dev_set
-  bash ./local/make_lre17_eval.sh $lre17_eval $source_data/$test_set
+  # bash ./local/make_lre17_train.sh $lre17_train $source_data/$train_set
+  # utils/fix_data_dir.sh $source_data/$train_set
+  # bash ./local/make_lre17_dev.sh $lre17_dev $source_data/$dev_set
+  # bash ./local/make_lre17_eval.sh $lre17_eval $source_data/$test_set
 
   # Divide test sets and verification sets of different lengths
   mkdir -p data/lre17_dev_3s
@@ -92,6 +93,13 @@ if [ ! -z $step01 ]; then
   cat data/original/test/segments.key | awk '{if($4""=="30") print $1}' >data/lre17_eval_30s/utt.list
   utils/subset_data_dir.sh --utt-list data/lre17_eval_30s/utt.list data/original/test/ data/lre17_eval_30s/
 
+  for x in data/lre17_dev_3s data/lre17_dev_10s data/lre17_dev_30s data/lre17_eval_3s data/lre17_eval_10s data/lre17_eval_30s;do
+    cat $x/utt2lang | cut -d ' '  -f2 | paste -d '-' - $x/wav.scp > $x/new_wav.scp
+    cat $x/utt2lang | awk '{print $2"-"$1 " " $2}' > $x/utt2spk
+    rm $x/{spk2utt,utt2lang}
+    mv $x/new_wav.scp $x/wav.scp
+    utils/fix_data_dir.sh $x
+  done
   echo -e "____________Step 1: Prepare Kaldi format data ended @ $(date)____________"
 fi
 
@@ -175,7 +183,8 @@ data_dir=data
 # step 6: Feature Preparation for training and testing
 if [ ! -z $step06 ]; then
   echo "____________Step 6: Extract Bottleneck Feature for training and testing start: @ $(date)____________"
-  for x in ${train_sets} ${recog_sets}; do
+#  for x in ${train_sets} ${recog_sets}; do
+  for x in ${recog_sets}; do
     data=$data_dir/$x/bn
     log=$data/log
     feat=$data/data-bn

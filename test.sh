@@ -12,9 +12,10 @@
 . cmd.sh
 . path.sh
 
+cmd="slurm.pl --quiet --exclude=node0[3-4,8]"
 # Trainset and testset prepared from prepare_data.sh
 train_set="lre17_train_30s"
-recog_sets="lre17_eval_3s lre17_eval_10s lre17_eval_30s lre17_dev_3s lre17_dev_10s lre17_dev_30s"
+recog_sets="lre17_eval_3s" # lre17_eval_10s lre17_eval_30s lre17_dev_3s lre17_dev_10s lre17_dev_30s"
 
 feat_name="bn" # bottleneck feature
 
@@ -51,7 +52,7 @@ if [ ! -z $step01 ]; then
     gpu=true
     cache=3000
     for x in ${recog_sets} ${train_set} ;do 
-        subtools/kaldi/sid/nnet3/xvector/extract_xvectors_sre.sh  --cmd "$cmd" \
+        subtools/kaldi/sid/nnet3/xvector/extract_xvectors_sre.sh  --cmd "$train_cmd" \
 			--use-gpu $gpu --nj $nj --cache-capacity $cache $nnet_dir ${source_data}/$x/${feat_name} $nnet_dir/$x
         echo "layer embeddings of $x extracted done."
     done
@@ -68,10 +69,10 @@ if [ ! -z $step02 ]; then
     echo $num
     for test in $recog_sets; do
         for meth in lr plda ;do
-            local/scoreSet.sh --nj $nj --steps 1-11 --eval false --source_data $source_data \
+            local/scoreSet2.sh --nj $nj --steps 1-11 --eval false --source_data $source_data \
                 --trainset ${train} --vectordir $nnet_dir --enrollset ${enroll} --testset ${test} \
                 --lda true --clda $clad --submean true --score $meth --metric "eer"
-            local/scoreSet.sh --nj $nj --steps 1-11 --eval false --source_data $source_data --trainset ${train} \
+            local/scoreSet2.sh --nj $nj --steps 1-11 --eval false --source_data $source_data --trainset ${train} \
                 --vectordir $nnet_dir --enrollset ${enroll} --testset ${test} --lda true --clda $clad --submean true --score $meth --metric "Cavg" || exit;
             echo "#LOG:: getScore use $meth Done!"
         done

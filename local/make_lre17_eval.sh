@@ -9,8 +9,8 @@ mkdir -p $tmp_dir
 
 trials=$input_dir/docs/lre17_eval_trials.tsv
 table=$input_dir/docs/lre17_eval_segments.key
-# trials=/data/users/ellenrao/NIST_LRE_Corpus/NIST_LRE_2017/key/lre17_eval_trials.tsv
-# table=/data/users/ellenrao/NIST_LRE_Corpus/NIST_LRE_2017/key/lre17_eval_segments.key
+trials=/data/users/ellenrao/NIST_LRE_Corpus/NIST_LRE_2017/key/lre17_eval_trials.tsv
+table=/data/users/ellenrao/NIST_LRE_Corpus/NIST_LRE_2017/key/lre17_eval_segments.key
 conv_table=./local/lre17_dev_eval_sessionids.tsv
 
 for file in $(awk '/\.sph/ { sub(/.*\//,"",$1); printf "%s ",$1}' $table); do

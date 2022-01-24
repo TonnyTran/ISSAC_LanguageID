@@ -215,10 +215,10 @@ if [ ! -z $step07 ]; then
     echo $num
     for test in $recog_sets; do
         for meth in lr plda ;do
-            local/scoreSet.sh --nj $nj --steps 1-11 --eval false --source_data $source_data \
+            local/scoreSet2.sh --nj $nj --steps 1-11 --eval false --source_data $source_data \
                 --trainset ${train} --vectordir $nnet_dir --enrollset ${enroll} --testset ${test} \
                 --lda true --clda $clad --submean true --score $meth --metric "eer"
-            local/scoreSet.sh --nj $nj --steps 1-11 --eval false --source_data $source_data --trainset ${train} \
+            local/scoreSet2.sh --nj $nj --steps 1-11 --eval false --source_data $source_data --trainset ${train} \
                 --vectordir $nnet_dir --enrollset ${enroll} --testset ${test} --lda true --clda $clad --submean true --score $meth --metric "Cavg" || exit;
             echo "#LOG:: getScore use $meth Done!"
         done
