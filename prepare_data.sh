@@ -67,10 +67,10 @@ mkdir -p tmp/$dataset/log
 # prepare data in Kaldi format
 if [ ! -z $step01 ]; then
   echo -e "____________Step 1: Prepare Kaldi format data start @ $(date)____________"
-  # bash ./local/make_lre17_train.sh $lre17_train $source_data/$train_set
-  # utils/fix_data_dir.sh $source_data/$train_set
-  # bash ./local/make_lre17_dev.sh $lre17_dev $source_data/$dev_set
-  # bash ./local/make_lre17_eval.sh $lre17_eval $source_data/$test_set
+  bash ./local/make_lre17_train.sh $lre17_train $source_data/$train_set
+  utils/fix_data_dir.sh $source_data/$train_set
+  bash ./local/make_lre17_dev.sh $lre17_dev $source_data/$dev_set
+  bash ./local/make_lre17_eval.sh $lre17_eval $source_data/$test_set
 
   # Divide test sets and verification sets of different lengths
   mkdir -p data/lre17_dev_3s
@@ -183,8 +183,8 @@ data_dir=data
 # step 6: Feature Preparation for training and testing
 if [ ! -z $step06 ]; then
   echo "____________Step 6: Extract Bottleneck Feature for training and testing start: @ $(date)____________"
-#  for x in ${train_sets} ${recog_sets}; do
-  for x in ${recog_sets}; do
+ for x in ${train_sets} ${recog_sets}; do
+  # for x in ${recog_sets}; do
     data=$data_dir/$x/bn
     log=$data/log
     feat=$data/data-bn
